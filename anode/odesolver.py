@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with ANODE.  If not, see <http://www.gnu.org/licenses/>.
 #*
-from .scheme import Euler, RK2, RK4
+from .scheme import Euler, RK2, Bosh3, RK4, RK4_alt, Dopri5
 
 
 def odesolver(func, z0, options = None):
@@ -23,12 +23,18 @@ def odesolver(func, z0, options = None):
         Nt = 2
     else:
         Nt = options['Nt']
-    if (options['method'] == 'Euler'):
+    if (options['method'] == 'Euler' or options['method'] == 'euler'):
         solver = Euler(func, z0, Nt = Nt)
-    elif (options['method'] == 'RK2'):
+    elif (options['method'] == 'RK2' or options['method'] == 'rk2'):
         solver = RK2(func, z0, Nt = Nt)
-    elif (options['method'] == 'RK4'):
+    elif (options['method'] == 'fixed_bosh3'):
+        solver = Bosh3(func, z0, Nt = Nt)
+    elif (options['method'] == 'RK4' or options['method'] == 'rk4'):
         solver = RK4(func, z0, Nt = Nt)
+    elif (options['method'] == 'RK4_alt' or options['method'] == 'rk4_alt'):
+        solver = RK4_alt(func, z0, Nt = Nt)
+    elif (options['method'] == 'fixed_dopri5'):
+        solver = Dopri5(func, z0, Nt = Nt)
     else:
         print('error unsupported method passed')
         return
