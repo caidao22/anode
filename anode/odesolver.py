@@ -21,8 +21,11 @@ from .scheme import Euler, RK2, Bosh3, RK4, RK4_alt, Dopri5
 def odesolver(func, z0, options = None):
     if options == None:
         Nt = 2
+        t0 = 0
     else:
         Nt = options['Nt']
+        t0 = options['t0']
+    print(z0.size())
     if (options['method'] == 'Euler' or options['method'] == 'euler'):
         solver = Euler(func, z0, Nt = Nt)
     elif (options['method'] == 'RK2' or options['method'] == 'rk2'):
@@ -38,6 +41,6 @@ def odesolver(func, z0, options = None):
     else:
         print('error unsupported method passed')
         return
-    z1 = solver.integrate(z0)
+    z1 = solver.integrate(z0,t0)
 
     return z1

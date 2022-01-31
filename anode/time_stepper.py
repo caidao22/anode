@@ -32,12 +32,12 @@ class Time_Stepper(object):
     def step(self, func, t, dt, y):
         pass
 
-    def integrate(self, y0):
+    def integrate(self, y0, t0):
         y1 = y0
         dt = 1. / float(self.Nt)
         for n in range(self.Nt):
-            t0 = 0 + n * dt
-            y1 = self.step(self.func, t0, dt, y1)
+            t = t0 + n * dt
+            y1 = self.step(self.func, t, dt, y1)
 
         return y1
 
